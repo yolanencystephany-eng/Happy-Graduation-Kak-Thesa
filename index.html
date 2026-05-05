@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduation - Kak Thesa 🎓</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            margin: 0; padding: 0;
+            background: #8b0000; /* Merah Marun */
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            text-align: center;
+        }
+
+        .container { width: 90%; max-width: 400px; position: relative; z-index: 10; }
+        
+        /* Navigasi Halaman */
+        .page { display: none; animation: slideIn 0.8s ease-out; }
+        .active { display: block; }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.3rem; margin-bottom: 10px; color: #ffcccb; }
+        p { font-size: 0.95rem; line-height: 1.6; }
+
+        /* Tombol Ikon */
+        .icon-btn { font-size: 90px; cursor: pointer; transition: 0.3s; display: inline-block; filter: drop-shadow(0 0 15px rgba(255,255,255,0.4)); }
+        .icon-btn:hover { transform: scale(1.15) rotate(5deg); }
+
+        /* Bingkai Foto */
+        .photo-frame {
+            width: 260px; height: 260px;
+            margin: 0 auto 15px;
+            border: 6px solid #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Slideshow Kamar */
+        .kamar-slides { display: none; width: 100%; height: 100%; object-fit: cover; }
+
+        /* Efek Berhamburan (Particle) */
+        .particle {
+            position: absolute; pointer-events: none;
+            z-index: 99; animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-next {
+            margin-top: 15px; padding: 12px 25px;
+            background: #fff; color: #8b0000;
+            border: none; border-radius: 50px;
+            font-weight: 600; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .ucapan-box {
+            font-size: 0.8rem; text-align: justify; 
+            background: rgba(255,255,255,0.15); 
+            padding: 15px; border-radius: 15px;
+            max-height: 250px; overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop><source src="musik.mp3" type="audio/mpeg"></audio>
+
+    <div class="container">
+        
+        <div id="page1" class="page active">
+            <div class="icon-btn" onclick="openGift()">🎁</div>
+            <h1>for Kak Thesa</h1>
+            <p>Klik kadonya ya, Kak!</p>
+        </div>
+
+        <div id="page2" class="page">
+            <div class="photo-frame"><img src="foto1.jpeg"></div>
+            <h1>Happy Graduation kak Thesa!</h1>
+            <button class="btn-next" onclick="nextPage(3)">Buka Pesan ✉️</button>
+        </div>
+
+        <div id="page3" class="page">
+            <div class="icon-btn" onclick="nextPage(4)">✉️</div>
+            <p>Ada surat manis buat Kakak...</p>
+        </div>
+
+        <div id="page4" class="page">
+            <div class="photo-frame" style="width: 150px; height: 150px;"><img src="foto1.jpeg"></div>
+            <div class="ucapan-box">
+                <b>Selamat ya kak atas kelulusannya! 🎓✨</b><br><br>
+                Seneng banget bisa lihat perjalanan kakak sampai di titik ini. Semangat ya kak untuk mulai perjalanan baru! Semoga kakak bisa jadi berkat di sekolah tempat kakak melayani, dipakai Tuhan dalam setiap pelayanan, dan selalu diberi hikmat serta kesabaran dalam menghadapi setiap tantangan.<br><br>
+                Semangat juga ngajar anak-anak di sana ya kak, pasti lucu-lucu banget hehehe 🤭💕 Walaupun kadang mungkin capek, tapi kiranya kakak selalu diberi sukacita dan hati yang penuh kasih untuk mereka.<br><br>
+                Doa kami, Tuhan selalu menyertai setiap langkah kakak, menguatkan, dan menuntun kakak dalam setiap hal. Tetap jadi berkat di manapun kakak ditempatkan ya 🤍✨
+            </div>
+            <button class="btn-next" onclick="nextPage(5)">Next ➔</button>
+        </div>
+
+        <div id="page5" class="page">
+            <div class="icon-btn" onclick="showFinal()">❤️</div>
+            <p>Satu lagi dari kami...</p>
+        </div>
+
+        <div id="page6" class="page">
+            <div class="photo-frame">
+                <img src="kamar1.jpeg" class="kamar-slides">
+                <img src="kamar2.jpeg" class="kamar-slides">
+            </div>
+            <h1>We love you kak Thesa! ❤️</h1>
+            <p>From, 507 yang super cute</p>
+        </div>
+
+    </div>
+
+    <script>
+        const music = document.getElementById("bgMusic");
+
+        function nextPage(num) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page' + num).classList.add('active');
+        }
+
+        function openGift() {
+            music.play();
+            // Efek meriah banget
+            for(let i=0; i<60; i++) { 
+                setTimeout(() => {
+                    const emojies = ['🌸', '🌹', '✨', '🎓', '🎈', '💖'];
+                    createParticle(emojies[Math.floor(Math.random() * emojies.length)]);
+                }, i * 40); 
+            }
+            setTimeout(() => nextPage(2), 2500);
+        }
+
+        function showFinal() {
+            for(let i=0; i<50; i++) { 
+                setTimeout(() => createParticle('❤️'), i * 40); 
+            }
+            nextPage(6);
+            startKamarSlides();
+        }
+
+        let slideIdx = 0;
+        function startKamarSlides() {
+            let slides = document.getElementsByClassName("kamar-slides");
+            for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+            slideIdx++;
+            if (slideIdx > slides.length) {slideIdx = 1}
+            slides[slideIdx-1].style.display = "block";
+            setTimeout(startKamarSlides, 3000); // Ganti foto kamar tiap 3 detik
+        }
+
+        function createParticle(symbol) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.innerHTML = symbol;
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = '100vh';
+            p.style.fontSize = (Math.random() * 25 + 20) + 'px';
+            p.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
